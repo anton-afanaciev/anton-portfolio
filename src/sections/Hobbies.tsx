@@ -16,7 +16,6 @@ export function Hobbies() {
       </div>
       <div className={styles.copy}><h3>{ru.hobbies.items[hobby.id].title}</h3><p>{ru.hobbies.items[hobby.id].note}</p></div>
     </article>)}</div>
-    <p className={styles.credit}>{ru.hobbies.credit}</p>
   </section>
 }
 

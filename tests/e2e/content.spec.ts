@@ -73,7 +73,7 @@ test('project filters include empty states and recover without navigation', asyn
   await expect(page).toHaveURL(/#projects$/)
 })
 
-test('local photos load and external images are credited honestly', async ({ page }) => {
+test('local photos load and hobby cards end without the removed caption', async ({ page }) => {
   await page.goto('./')
   await expect(page.locator('#home').getByText('QA Engineer', { exact: true })).toBeVisible()
   await expect(page.locator('#home img')).toHaveAttribute('loading', 'eager')
@@ -82,7 +82,14 @@ test('local photos load and external images are credited honestly', async ({ pag
   await expect(page.locator('#hobbies article')).toHaveCount(3)
   await expect(page.locator('#hobbies svg')).toHaveCount(0)
   await expect(page.locator('#hobbies img')).toHaveCount(3)
-  await expect(page.locator('#hobbies').getByText('Эндуро — мой личный снимок.', { exact: false })).toContainText('фотографии других спортсменов')
+  await expect(page.locator('#hobbies')).not.toContainText('Эндуро — мой личный снимок.')
+  await expect(page.locator('#hobbies')).not.toContainText('фотографии других спортсменов')
+  expect(await page.locator('#hobbies').evaluate(section => {
+    const grid = section.lastElementChild!
+    const cards = Array.from(grid.children)
+    const bottom = Math.max(...cards.map(card => card.getBoundingClientRect().bottom))
+    return Math.abs(grid.getBoundingClientRect().bottom - bottom) < 1
+  })).toBe(true)
   for (const name of ['Плавание', 'Футбол', 'Эндуро']) {
     await expect(page.locator('#hobbies').getByRole('heading', { name })).toBeVisible()
   }
