@@ -1,0 +1,20 @@
+﻿.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 30px; }
+.card { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.scene { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--art); }
+.scene::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, #10111738, transparent 25%, transparent 65%, #1011179c); }
+.photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.card[data-kind='swim'] .photo { object-position: 50% 55%; }
+.card[data-kind='enduro'] .photo { object-position: 50% 42%; }
+.number { position: absolute; z-index: 1; top: 18px; left: 18px; display: grid; place-items: center; width: 38px; height: 32px; border: 1px solid #ffffff70; border-radius: 7px; background: #101117bc; color: #fff; font: 12px/1.5 'Consolas', monospace; }
+.copy { position: relative; padding: 23px 24px 25px; }
+.copy::before { content: ''; position: absolute; top: 0; left: 24px; width: 38px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--accent)); }
+.copy h3 { font-size: 23px; line-height: 1.4; font-weight: 550; letter-spacing: -.5px; }
+.copy p { font-size: 14px; line-height: 1.7; color: var(--muted); margin-top: 7px; }
+.credit { font-size: 12px; line-height: 1.8; color: var(--muted); margin-top: 18px; max-width: 720px; }
+.fallback { height: 100%; display: grid; place-items: center; padding: 24px; color: var(--text); text-align: center; font-size: 14px; }
+@media (hover: hover) { .card:hover { transform: translateY(-4px); border-color: var(--line); box-shadow: 0 16px 40px #00000018; } }
+@media (max-width: 1099px) and (min-width: 701px) { .grid { gap: 12px; } .copy { padding: 20px 16px; } .copy::before { left: 16px; } .copy h3 { font-size: 20px; } .copy p { font-size: 13px; } }
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; gap: 24px; margin-top: 24px; } .card { width: 100%; max-width: 520px; margin-inline: auto; } .copy { padding: 22px; } .copy::before { left: 22px; } }
+@media (prefers-reduced-motion: reduce) { .card:hover { transform: none; } }
+:global(html[data-reduced-motion='true']) .card:hover { transform: none; }
+
