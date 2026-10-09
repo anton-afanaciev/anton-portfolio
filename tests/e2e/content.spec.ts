@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test('name leads hero, portrait follows on mobile, and photo cards respect reduced motion', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('./')
   const heading = page.getByRole('heading', { level: 1, name: 'Антон Афанасьев' })
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
   await expect(heading).toBeVisible()
@@ -30,7 +30,7 @@ test('name leads hero, portrait follows on mobile, and photo cards respect reduc
 
 test('all tools expand by keyboard and remain readable in both themes', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/#skills')
+  await page.goto('./#skills')
   for (const theme of ['dark', 'light']) {
     if (await page.locator('html').getAttribute('data-theme') !== theme) {
       await page.getByRole('button', { name: theme === 'light' ? 'Включить светлую тему' : 'Включить тёмную тему' }).click()
@@ -56,7 +56,7 @@ test('all tools expand by keyboard and remain readable in both themes', async ({
 })
 
 test('project filters include empty states and recover without navigation', async ({ page }) => {
-  await page.goto('/#projects')
+  await page.goto('./#projects')
   const section = page.locator('#projects')
   await expect(section.getByRole('article')).toHaveCount(1)
   await expect(section.getByText('В разработке')).toBeVisible()
@@ -74,7 +74,7 @@ test('project filters include empty states and recover without navigation', asyn
 })
 
 test('local photos load and external images are credited honestly', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('./')
   await expect(page.locator('#home').getByText('QA Engineer', { exact: true })).toBeVisible()
   await expect(page.locator('#home img')).toHaveAttribute('loading', 'eager')
   await expect(page.locator('#home img')).toHaveAttribute('fetchpriority', 'high')
@@ -107,7 +107,7 @@ test('local photos load and external images are credited honestly', async ({ pag
 test('name replaces former branding and photos recover with a stable fallback', async ({ page }) => {
   await page.route('**/photos/portrait-*.webp', route => route.abort())
   await page.route('**/photos/football-*.webp', route => route.abort())
-  await page.goto('/')
+  await page.goto('./')
   await expect(page).toHaveTitle('Антон Афанасьев | QA Engineer')
   await expect(page.locator('body')).not.toContainText(/anton\s*\.\s*dev/i)
   await expect(page.locator('header a[aria-label]')).toHaveAccessibleName('Антон Афанасьев — главная')

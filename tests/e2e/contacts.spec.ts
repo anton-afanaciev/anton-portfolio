@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test('portrait labels stay clear of the photo in both themes at supported widths', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/')
+  await page.goto('./')
   for (const width of [320, 360, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 1000 })
     for (const theme of ['dark', 'light']) {
@@ -42,7 +42,7 @@ test('real contact cards activate by click, keyboard and mobile touch', async ({
   await page.emulateMedia({ reducedMotion: 'reduce' })
   // Keep the regression deterministic: exercise navigation without depending on external services.
   await context.route('https://t.me/Anton_afff', route => route.fulfill({ contentType: 'text/html', body: '<title>Telegram destination</title>' }))
-  await page.goto('/#contacts')
+  await page.goto('./#contacts')
   const section = page.locator('#contacts')
   await expect(section.getByRole('link')).toHaveCount(3)
   await expect(section).not.toContainText(/Контакт пока не добавлен|появятся здесь позже/)

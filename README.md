@@ -1,12 +1,14 @@
 # Антон Афанасьев
 
-Локальное портфолио. Дизайн этапа 1 согласован; реализовано содержание этапа 2, ожидается согласование результата. Этап 3 и публикация не разрешены.
+Персональное портфолио. Реализовано содержание этапа 2; консоль и QA Mode остаются для этапа 3. Публикация текущей версии на GitHub Pages разрешена владельцем.
+
+Адрес сайта: [anton-afanaciev.github.io/anton-portfolio](https://anton-afanaciev.github.io/anton-portfolio/). Статус первой публикации проверяется в [GitHub Actions](https://github.com/anton-afanaciev/anton-portfolio/actions).
 
 ## Запуск
 
 Нужен Node.js 22.12+ или 24 LTS и npm. Проверки проекта выполнены на Node.js 24.14.0. В папке проекта: `npm ci`, затем `npm run dev`.
-Открыть http://127.0.0.1:5173 (точный адрес указан в терминале).
-Production: `npm run build`, `npm run preview` — http://127.0.0.1:4173.
+Открыть http://127.0.0.1:5173/anton-portfolio/ (точный адрес указан в терминале).
+Production: `npm run build`, `npm run preview` — http://127.0.0.1:4173/anton-portfolio/.
 
 ## Проверки
 
@@ -24,7 +26,15 @@ Production: `npm run build`, `npm run preview` — http://127.0.0.1:4173.
 
 ## Состав репозитория и статус
 
-Репозиторий исходников: [anton-afanaciev/anton-portfolio](https://github.com/anton-afanaciev/anton-portfolio). Сайт не опубликован; GitHub Pages в рамках разработки не включался. Этап 2 ожидает согласования владельца, этап 3 не начат. Локальный preview не является публичным размещением. Конфигурация Vite не менялась для Pages; настройка пути и размещения потребует отдельного решения.
+Репозиторий исходников: [anton-afanaciev/anton-portfolio](https://github.com/anton-afanaciev/anton-portfolio). Vite использует base `/anton-portfolio/`. Этап 3 не начат.
+
+## Публикация и обновление
+
+В [Settings → Pages](https://github.com/anton-afanaciev/anton-portfolio/settings/pages), раздел Build and deployment, выбрать Source: **GitHub Actions**. Workflow `.github/workflows/deploy.yml` следует [официальной инструкции Vite](https://vite.dev/guide/static-deploy.html#github-pages) и использует официальные GitHub actions, стандартные GITHUB_TOKEN/OIDC; SSH, сторонние токены и платные сервисы не нужны. Служебные разрешения Pages ограничены задачей deploy.
+
+Каждый обычный push в `main` запускает npm ci, typecheck, lint, unit, production build и E2E desktop/mobile под `/anton-portfolio/`, затем публикует только `dist`. Проверки должны пройти до публикации. Для обновления изменить исходники/данные, выполнить команды проверок выше, создать коммит и `git push origin main`; результат виден в Actions. Возможен ручной запуск через Actions → Deploy portfolio to GitHub Pages → Run workflow.
+
+Для отката будущих изменений вернуть содержимое известной успешно опубликованной версии, сохранив workflow и Vite base, затем выполнить обычный commit/push. Отмена первого коммита настройки Pages удалит workflow и не обновит уже опубликованный сайт; прежней Pages-версии до первой успешной публикации нет.
 
 В Git входят исходники, тесты, конфигурации, package-lock.json, README и используемые ресурсы public/. Зависимости, dist, отчёты, env/ключи, локальные настройки, журналы разработки и снимки проверок исключены через .gitignore. Для работы приложения переменные окружения и секреты не требуются.
 
