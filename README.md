@@ -2,7 +2,7 @@
 
 Персональное портфолио. Реализовано содержание этапа 2; консоль и QA Mode остаются для этапа 3. Публикация текущей версии на GitHub Pages разрешена владельцем.
 
-Адрес сайта: [anton-afanaciev.github.io/anton-portfolio](https://anton-afanaciev.github.io/anton-portfolio/). Статус первой публикации проверяется в [GitHub Actions](https://github.com/anton-afanaciev/anton-portfolio/actions).
+Адрес сайта: [anton-afanaciev.github.io/anton-portfolio](https://anton-afanaciev.github.io/anton-portfolio/). Владелец включил источник GitHub Actions в настройках Pages. Статус публикации проверяется в [GitHub Actions](https://github.com/anton-afanaciev/anton-portfolio/actions).
 
 ## Запуск
 
